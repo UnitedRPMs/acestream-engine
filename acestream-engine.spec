@@ -2,7 +2,7 @@
 
 Name: acestream-engine
 Version: 3.1.49
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Ace Stream Engine
 License: LGPL-2.0
 Group: Productivity/Multimedia/Other
@@ -14,6 +14,7 @@ Source0: http://acestream.org/downloads/linux/acestream_%{version}_debian_9.9_x8
 Patch1:  start-engine.patch
 
 Requires: python2-setuptools python2-apsw
+Requires: openssl-freeworld-libs
 Recommends: python2-appindicator
 Requires: fdk-aac
 # optional
@@ -77,6 +78,9 @@ touch %{buildroot}/opt/%{name}/acestream.log
 %{_bindir}/acestreamengine
  
 %changelog
+* Thu Dec 19 2019 Sérgio Basto <sergio@serjux.com> - 3.1.49-3
+- Also Requires: openssl-freeworld-libs
+
 * Thu Dec 19 2019 Sérgio Basto <sergio@serjux.com> - 3.1.49-2
 - Try to deal with python2 mass removal on F32
 
