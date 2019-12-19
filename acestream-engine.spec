@@ -29,7 +29,7 @@ Requires: python2-six
 Requires: python2-enum34
 
 %description
-Ace Stream  is an engine which allows users to watch live streams and video based on torrent protocol.
+Ace Stream is an engine which allows users to watch live streams and video based on torrent protocol.
 
 %prep
 %setup -qc
