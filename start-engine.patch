@@ -1,0 +1,10 @@
+--- ./start-engine	2019-07-11 17:24:17.000000000 +0100
++++ ./start-engine	2019-12-16 01:39:53.068518267 +0000
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/usr/bin/sh
+ 
+-ROOT=$(readlink -f $(dirname $0))
+-LD_LIBRARY_PATH=${ROOT}/lib ${ROOT}/acestreamengine --lib-path $ROOT "$@"
++ROOT=$(dirname $(readlink -f $0))
++LD_LIBRARY_PATH=/usr/lib64/openssl-freeworld/:${ROOT}/lib ${ROOT}/acestreamengine --lib-path $ROOT "$@"
