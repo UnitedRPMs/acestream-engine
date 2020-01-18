@@ -2,7 +2,7 @@
 
 Name: acestream-engine
 Version: 3.1.49
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Ace Stream Engine
 License: LGPL-2.0
 Group: Productivity/Multimedia/Other
@@ -12,6 +12,7 @@ ExclusiveArch: x86_64
 
 Source0: http://acestream.org/downloads/linux/acestream_%{version}_debian_9.9_x86_64.tar.gz
 Patch1:  start-engine.patch
+Patch2:  acestream.conf.patch
 
 Requires: python2-setuptools python2-apsw
 Requires: openssl-freeworld-libs
@@ -22,11 +23,13 @@ Requires: fdk-aac
 Requires: python2-beautifulsoup4 python2-blist python2-GeoIP python2-iso8601
 Requires: python2-dns
 Requires: python2-futures python2-lxml m2crypto python2-miniupnpc
-Requires: python2-protobuf python2-psutil
+Requires: python2-protobuf
 Requires: python2-webencodings
 Requires: python2-typing
 # python-bitarray-1.x is not compatible
 #Requires: python-bitarray
+# AttributeError: 'Process' object has no attribute 'get_cpu_percent'
+#Requires: python2-psutil
 Requires: python2-requests
 Requires: python2-six
 Requires: python2-enum34
@@ -38,6 +41,7 @@ Ace Stream is an engine which allows users to watch live streams and video based
 %prep
 %setup -qc
 %patch1 -p1
+%patch2 -p1
 cd lib
 %if 0%{?fedora} && 0%{?fedora} <= 31
 rm beautifulsoup4-4.5.3-py2.7.egg
@@ -51,7 +55,7 @@ rm lxml-3.7.2-py2.7-linux-x86_64.egg
 rm M2Crypto-0.35.2-py2.7-linux-x86_64.egg
 rm miniupnpc-2.1-py2.7-linux-x86_64.egg
 rm protobuf-3.0.0b2-py2.7.egg
-rm psutil-1.2.1-py2.7-linux-x86_64.egg
+#rm psutil-1.2.1-py2.7-linux-x86_64.egg
 rm requests-2.12.5-py2.7.egg
 rm six-1.10.0-py2.7.egg
 rm typing-3.7.4-py2.7.egg
@@ -70,14 +74,15 @@ cd -
 %__cp -a acestream.conf %{buildroot}/opt/%{name}
 %__cp -a data lib %{buildroot}/opt/%{name}
 %__ln_s ../../opt/%{name}/start-engine %{buildroot}%{_bindir}/acestreamengine
-touch %{buildroot}/opt/%{name}/acestream.log
-%__chmod 777 %{buildroot}/opt/%{name}/acestream.log
  
 %files
 /opt/%{name}/
 %{_bindir}/acestreamengine
  
 %changelog
+* Sat Jan 18 2020 Sérgio Basto <sergio@serjux.com> - 3.1.49-4
+- Fix log location and disable debug
+
 * Thu Dec 19 2019 Sérgio Basto <sergio@serjux.com> - 3.1.49-3
 - Also Requires: openssl-freeworld-libs
 

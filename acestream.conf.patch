@@ -1,0 +1,17 @@
+--- ./acestream.conf.orig	2020-01-18 06:47:36.082118904 +0000
++++ ./acestream.conf	2020-01-18 06:55:09.214704191 +0000
+@@ -7,11 +7,9 @@
+ --debug-client-transporter
+ --debug-profile
+ --log-file
+-acestream.log
+---log-debug
+-355
++/tmp/acestream.log
+ --log-modules
+ root:D
+ --log-max-size
+ 20000000
+---debug-filter-aircast
+\ No newline at end of file
++--debug-filter-aircast
