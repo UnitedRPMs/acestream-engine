@@ -1,10 +1,11 @@
 --- ./start-engine	2019-07-11 17:24:17.000000000 +0100
-+++ ./start-engine	2019-12-16 01:39:53.068518267 +0000
-@@ -1,4 +1,4 @@
++++ ./start-engine	2020-07-14 20:04:59.278928481 +0100
+@@ -1,4 +1,5 @@
 -#!/bin/sh
 +#!/usr/bin/sh
  
 -ROOT=$(readlink -f $(dirname $0))
 -LD_LIBRARY_PATH=${ROOT}/lib ${ROOT}/acestreamengine --lib-path $ROOT "$@"
++# Fix if it is an symlink
 +ROOT=$(dirname $(readlink -f $0))
-+LD_LIBRARY_PATH=/usr/lib64/openssl-freeworld/:${ROOT}/lib ${ROOT}/acestreamengine --lib-path $ROOT "$@"
++LD_LIBRARY_PATH=/usr/lib64/openssl-freeworld/:${ROOT}/lib ${ROOT}/acestreamengine --lib-path ${ROOT} --log-file /tmp/acestream.log "$@"

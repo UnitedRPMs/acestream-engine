@@ -2,7 +2,7 @@
 
 Name: acestream-engine
 Version: 3.1.49
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: Ace Stream Engine
 License: LGPL-2.0
 Group: Productivity/Multimedia/Other
@@ -11,6 +11,7 @@ URL: http://acestream.org/
 ExclusiveArch: x86_64
 
 Source0: http://acestream.org/downloads/linux/acestream_%{version}_debian_9.9_x86_64.tar.gz
+Source1: https://raw.githubusercontent.com/UnitedRPMs/acestream-engine/master/lib.tgz
 Patch1:  start-engine.patch
 Patch2:  acestream.conf.patch
 
@@ -19,7 +20,7 @@ Requires: openssl-freeworld-libs
 Recommends: python2-appindicator
 Requires: fdk-aac
 # optional
-%if 0%{?fedora} && 0%{?fedora} <= 31
+%if 0%{?fedora} && 0%{?fedora} <= 30
 Requires: python2-beautifulsoup4 python2-blist python2-GeoIP python2-iso8601
 Requires: python2-dns
 Requires: python2-futures python2-lxml m2crypto python2-miniupnpc
@@ -39,11 +40,11 @@ Requires: python2-enum34
 Ace Stream is an engine which allows users to watch live streams and video based on torrent protocol.
 
 %prep
-%setup -qc
+%setup -qc -a1
 %patch1 -p1
 %patch2 -p1
 cd lib
-%if 0%{?fedora} && 0%{?fedora} <= 31
+%if 0%{?fedora} && 0%{?fedora} <= 30
 rm beautifulsoup4-4.5.3-py2.7.egg
 rm blist-1.3.4-py2.7-linux-x86_64.egg
 rm dnspython-1.15.0-py2.7.egg
@@ -80,6 +81,12 @@ cd -
 %{_bindir}/acestreamengine
  
 %changelog
+* Tue Feb 16 2021 Sérgio Basto <sergio@serjux.com> - 3.1.49-6
+- Bundle some old libs and others fixes
+
+* Mon Jul 13 2020 Sérgio Basto <sergio@serjux.com> - 3.1.49-5
+- Enable log on console and not use system libraries
+
 * Sat Jan 18 2020 Sérgio Basto <sergio@serjux.com> - 3.1.49-4
 - Fix log location and disable debug
 
